@@ -26,6 +26,8 @@ Capturas **reales** tomadas de GitHub, Azure DevOps y Azure. Formato PNG, legibl
 | `06-etapas-ci.png` | Diagrama de etapas Validar → Empaquetar en verde | Jhon |
 | `07-artefacto-webapp.png` | Artefacto `webapp` con `ponderix-<build>.zip` y `buildinfo.json` | Jhon |
 | `08-validacion-pr.png` | Check de CI ejecutado en un Pull Request de GitHub | Jhon |
+| `09-prueba-detecta-error.png` | Prueba fallida al romper a propósito el límite 4.5 → «Excelente» (cambio revertido) | David |
+| `10-pr-pruebas.png` | Pull Request de las pruebas con título, rama y revisor | David |
 
 ## 03-cd/ — Entrega Continua
 

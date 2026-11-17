@@ -14,7 +14,7 @@ Práctica final de **Despliegue de Software 2026-2**: Integración Continua (CI)
 | # | Integrante | Usuario GitHub | Responsabilidad | Contribuciones verificables |
 |---|---|---|---|---|
 | 1 | Juan Sebastián Echeverri Gallego | [@JuanSebastianEcheverriGallego](https://github.com/JuanSebastianEcheverriGallego) | Gestión de GitHub, aplicación base y documentación | Repositorio, protección de `main`, acceso del docente, código de la aplicación, README, plantilla de PR. [PENDIENTE: enlace al PR] |
-| 2 | David Stiven Franco López | [@Davdfranco](https://github.com/Davdfranco) | Pruebas automatizadas y calidad | Proyecto `tests/Ponderix.Tests` (pruebas unitarias y de integración), registro en la solución, guía de pruebas. [PENDIENTE: enlace al PR] |
+| 2 | David Stiven Franco López | [@Davdfranco](https://github.com/Davdfranco) | Pruebas automatizadas y calidad | Proyecto `tests/Ponderix.Tests` (pruebas unitarias y de integración), registro en la solución, guía de pruebas. [PR #2](https://github.com/JuanSebastianEcheverriGallego/PonderixOficial/pull/2) |
 | 3 | Jhon Fernando Sánchez Álvarez | [@Jhonzn](https://github.com/Jhonzn) | Configuración de CI en Azure DevOps | `pipelines/azure-pipelines-ci.yml`, conexión GitHub ↔ Azure DevOps, disparador en `main`, artefacto `webapp`, validación de PR. [PENDIENTE: enlace al PR] |
 | 4 | Marbel Juliana Mejía Bedoya | [@JULIANA-s22](https://github.com/JULIANA-s22) | Configuración de CD y Azure | App Service, Service Connection, entorno `ponderix-produccion`, `pipelines/azure-pipelines-cd.yml`, `scripts/crear-recursos-azure.*`. [PENDIENTE: enlace al PR] |
 | 5 | Marlon García Sepúlveda | [@M3rl0n](https://github.com/M3rl0n) | Verificación extremo a extremo, evidencias y videos | Cambio visible v1.1.0, `scripts/verificar-despliegue.*`, `scripts/buscar-secretos.*`, carpeta `evidencias/`, coordinación de videos. [PENDIENTE: enlace al PR] |
@@ -119,7 +119,18 @@ dotnet test Ponderix.slnx
 dotnet test Ponderix.slnx --collect "XPlat Code Coverage"
 ```
 
-[PENDIENTE (David): resumen de las pruebas — número de pruebas, qué cubren las unitarias y qué cubren las de integración.]
+El proyecto `tests/Ponderix.Tests` contiene **25 pruebas** (xUnit):
+
+- **Unitarias (19)** — `CalculadoraNotasTests`: promedio ponderado y redondeo, tolerancia de pesos (33.33 + 33.33 + 33.34),
+  límites exactos de cada nivel (4.5, 3.5, 2.5) y validaciones (sin criterios, pesos que no suman 100, notas fuera de 0–5, nombre vacío).
+- **Integración (6)** — `ApiTests`: levanta la API en memoria con `WebApplicationFactory` y comprueba `/health`,
+  `/api/version`, `/api/rubricas`, `POST /api/notas/calcular` (200 y 400) y que `/` sirve la interfaz.
+
+En la CI se ejecutan en la etapa **Validar**; si alguna falla, la etapa **Empaquetar** no se ejecuta y no hay despliegue.
+
+**Alcance de la comprobación de salud:** la prueba de `/health` verifica que la API arranca y responde `Healthy`. Es una comprobación de disponibilidad del proceso; no valida servicios externos, porque la aplicación no depende de base de datos ni de almacenamiento persistente.
+
+Ejecución local: `dotnet test Ponderix.slnx` → 25 superadas, 0 con error.
 
 ## 9. Pipeline de CI
 
