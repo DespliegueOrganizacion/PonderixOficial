@@ -1,7 +1,14 @@
 # Ponderix · Calculadora de notas ponderadas con CI/CD en Azure
 
 <!-- Jhon reemplaza esta línea por la insignia de estado de la pipeline CI (Azure DevOps → pipeline ponderix-ci → ⋯ → Status badge → Markdown). -->
-[PENDIENTE: INSIGNIA DE ESTADO DE ponderix-ci]
+- **Organización / proyecto:** `ponderix-equipo` / `Ponderix`
+- **Pipeline:** [ponderix-ci](https://dev.azure.com/ponderix-equipo/Ponderix/_build?definitionId=1)
+- **Ejecución de referencia:** [Build #4](https://dev.azure.com/ponderix-equipo/Ponderix/_build/results?buildId=4&view=results)
+- **Etapas:**
+  - **Validar:** instalación de .NET SDK 10, restauración de dependencias (`restore`), compilación (`build`), ejecución de pruebas (`test`) y publicación de resultados y cobertura.
+  - **Empaquetar:** publicación de la aplicación (`publish`), generación de `buildinfo.json`, creación del archivo `ponderix-<build>.zip` y publicación del artefacto `webapp`.
+
+En las ejecuciones correspondientes a Pull Requests únicamente se ejecuta la etapa **Validar**. La etapa **Empaquetar** se ejecuta en las ejecuciones de la rama principal (`main`).
 
 Práctica final de **Despliegue de Software 2026-2**: Integración Continua (CI) y Entrega Continua (CD) con **GitHub**, **Azure DevOps** y **Azure App Service**.
 
