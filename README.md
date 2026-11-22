@@ -23,7 +23,7 @@ Práctica final de **Despliegue de Software 2026-2**: Integración Continua (CI)
 | 1 | Juan Sebastián Echeverri Gallego | [@JuanSebastianEcheverriGallego](https://github.com/JuanSebastianEcheverriGallego) | Gestión de GitHub, aplicación base y documentación | Repositorio, protección de `main`, acceso del docente, código de la aplicación, README, plantilla de PR. [PR #1](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/1) |
 | 2 | David Stiven Franco López | [@Davdfranco](https://github.com/Davdfranco) | Pruebas automatizadas y calidad | Proyecto `tests/Ponderix.Tests` (pruebas unitarias y de integración), registro en la solución, guía de pruebas. [PR #2](https://github.com/JuanSebastianEcheverriGallego/PonderixOficial/pull/2) |
 | 3 | Jhon Fernando Sánchez Álvarez | [@Jhonzn](https://github.com/Jhonzn) | Configuración de CI en Azure DevOps | `pipelines/azure-pipelines-ci.yml`, conexión GitHub ↔ Azure DevOps, disparador en `main`, artefacto `webapp`, validación de PR. [PENDIENTE: enlace al PR] |
-| 4 | Marbel Juliana Mejía Bedoya | [@JULIANA-s22](https://github.com/JULIANA-s22) | Configuración de CD y Azure | App Service, Service Connection, entorno `ponderix-produccion`, `pipelines/azure-pipelines-cd.yml`, `scripts/crear-recursos-azure.*`. [PENDIENTE: enlace al PR] |
+| 4 | Marbel Juliana Mejía Bedoya | [@JULIANA-s22](https://github.com/JULIANA-s22) | Configuración de CD y Azure | App Service, Service Connection, entorno `ponderix-produccion`, `pipelines/azure-pipelines-cd.yml`, `scripts/crear-recursos-azure.*`. [PR #7](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/7) |
 | 5 | Marlon García Sepúlveda | [@M3rl0n](https://github.com/M3rl0n) | Verificación extremo a extremo, evidencias y videos | Cambio visible v1.1.0, `scripts/verificar-despliegue.*`, `scripts/buscar-secretos.*`, carpeta `evidencias/`, coordinación de videos. [PENDIENTE: enlace al PR] |
 
 El detalle de quién hizo qué se puede comprobar en la pestaña **Pull requests → Closed** y en `git log --merges`.
@@ -149,26 +149,30 @@ Ejecución local: `dotnet test Ponderix.slnx` → 25 superadas, 0 con error.
 
 ## 10. Pipeline de CD y Azure App Service
 
-[PENDIENTE (Marbel): enlace a la pipeline `ponderix-cd` y a un despliegue exitoso.]
+- Organización / proyecto: `ponderix-equipo` / `Ponderix`
+- Pipeline: [`ponderix-cd`](https://dev.azure.com/ponderix-equipo/Ponderix/_build) (definida en `pipelines/azure-pipelines-cd.yml`)
+- Despliegue exitoso de referencia: ejecución «CD de CI 20261121.2», disparada por la ejecución `20261121.2` de `ponderix-ci` en `main` (commit `31d8282`). Pasos en verde: descarga del artefacto `webapp`, trazabilidad, despliegue con `AzureWebApp@1` y prueba de humo.
+- Funcionamiento: `ponderix-cd` no reacciona a commits ni PR; se activa sola cuando `ponderix-ci` termina con éxito en `main`, descarga **ese** artefacto sin recompilar y lo publica en App Service. La prueba de humo exige `/health` = `Healthy` y que `/api/version` devuelva el commit construido por la CI.
+- Creación reproducible del recurso: `scripts/crear-recursos-azure.ps1` / `.sh`.
 
 | Configuración | Valor |
 |---|---|
-| Suscripción | [PENDIENTE: nombre de la suscripción, sin el ID] |
+| Suscripción | Azure for Students |
 | Grupo de recursos | `rg-ponderix` |
-| Plan de App Service | `asp-ponderix` · Linux · [PENDIENTE: SKU F1/B1] |
-| Web App | [PENDIENTE: NOMBRE REAL DEL APP SERVICE] |
-| Región | [PENDIENTE: REGIÓN] |
+| Plan de App Service | `asp-ponderix` · Linux · F1 |
+| Web App | `ponderix-equipo1` |
+| Región | México Central (`mexicocentral`) |
 | Pila | `DOTNETCORE|10.0` · comando de inicio `dotnet Ponderix.Api.dll` |
 | Seguridad | HTTPS Only · TLS 1.2 mínimo · FTP deshabilitado · ruta de salud `/health` |
 | Service Connection | `sc-azure-ponderix` (Azure Resource Manager, federación de identidad de carga de trabajo) |
-| Entorno de Azure DevOps | `ponderix-produccion` · [PENDIENTE: indicar si tiene aprobación manual y su efecto] |
+| Entorno de Azure DevOps | `ponderix-produccion` · **sin aprobación manual**: cada ejecución exitosa de CI en `main` se despliega sin intervención humana (automatización extremo a extremo). Si se añadiera *Approvals and checks → Approvals*, la CD quedaría en pausa («Waiting for approval») hasta que la persona aprobadora acepte: más control, menos automatización. |
 
 ## 11. URL pública
 
-**[PENDIENTE: URL REAL DE AZURE APP SERVICE]**
+**<https://ponderix-equipo1.azurewebsites.net>**
 
-- Salud: `[URL]/health`
-- Versión y commit publicados: `[URL]/api/version`
+- Salud: <https://ponderix-equipo1.azurewebsites.net/health>
+- Versión y commit publicados: <https://ponderix-equipo1.azurewebsites.net/api/version>
 
 ## 12. Trazabilidad del cambio demostrado (GitHub → CI → CD → Azure)
 
@@ -204,7 +208,10 @@ Capturas organizadas en [`evidencias/`](evidencias/README.md) por actividad (rep
 
 | # | Problema | Causa | Solución | Responsable |
 |---|---|---|---|---|
-| 1 | [PENDIENTE: registrar los problemas reales encontrados] | | | |
+| 1 | La región elegida inicialmente para el App Service (`brazilsouth`) no estaba permitida en la suscripción | La política *Allowed resource deployment regions* de Azure for Students solo admite `southcentralus`, `mexicocentral`, `canadacentral`, `centralus` y `westus3` | Consultar la política con `az policy assignment list` antes de crear recursos y usar una región permitida | Marbel |
+| 2 | «Operation cannot be completed without additional quota» al crear el plan F1 en `canadacentral` y `centralus` (y B1 en `centralus`) | La suscripción tenía cuota 0 de instancias F1/B1 en esas regiones | Probar las regiones permitidas hasta encontrar cuota: F1 funcionó en `mexicocentral`. Se eliminó el grupo de recursos de prueba y se recreó todo con `scripts/crear-recursos-azure.ps1` en esa región | Marbel |
+| 3 | «Access denied. ... needs Create permissions» al crear el entorno `ponderix-produccion` | La cuenta no tenía permisos de creación en Environments de Azure DevOps | Jhon agregó a Marbel a *Project Administrators*; después se creó el entorno | Marbel |
+| 4 | La CD quedó en «Waiting · Permission needed» en la primera ejecución | Azure DevOps exige autorizar explícitamente el uso de la Service Connection y del entorno por parte de una pipeline nueva | Pulsar *View → Permit* para ambos recursos en la primera ejecución manual | Marbel |
 
 ## 17. Licencia y uso académico
 
