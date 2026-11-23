@@ -152,6 +152,7 @@ Ejecución local: `dotnet test Ponderix.slnx` → 25 superadas, 0 con error.
 - Organización / proyecto: `ponderix-equipo` / `Ponderix`
 - Pipeline: [`ponderix-cd`](https://dev.azure.com/ponderix-equipo/Ponderix/_build) (definida en `pipelines/azure-pipelines-cd.yml`)
 - Despliegue exitoso de referencia: ejecución «CD de CI 20261121.2», disparada por la ejecución `20261121.2` de `ponderix-ci` en `main` (commit `31d8282`). Pasos en verde: descarga del artefacto `webapp`, trazabilidad, despliegue con `AzureWebApp@1` y prueba de humo.
+- Ejecución automática: «CD de CI 20261122.2», disparada sola por `ponderix-ci` tras fusionar el PR #8 en `main`, sin intervención manual. Evidencia: `evidencias/03-cd/08-cd-automatica.png`.
 - Funcionamiento: `ponderix-cd` no reacciona a commits ni PR; se activa sola cuando `ponderix-ci` termina con éxito en `main`, descarga **ese** artefacto sin recompilar y lo publica en App Service. La prueba de humo exige `/health` = `Healthy` y que `/api/version` devuelva el commit construido por la CI.
 - Creación reproducible del recurso: `scripts/crear-recursos-azure.ps1` / `.sh`.
 
