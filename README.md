@@ -2,6 +2,9 @@
 
 [![Build Status](https://dev.azure.com/ponderix-equipo/Ponderix/_apis/build/status%2Fponderix-ci?branchName=main)](https://dev.azure.com/ponderix-equipo/Ponderix/_build/latest?definitionId=1&branchName=main)
 
+
+En las ejecuciones correspondientes a Pull Requests únicamente se ejecuta la etapa **Validar**. La etapa **Empaquetar** se ejecuta en las ejecuciones de la rama principal (`main`).
+
 Práctica final de **Despliegue de Software 2026-2**: Integración Continua (CI) y Entrega Continua (CD) con **GitHub**, **Azure DevOps** y **Azure App Service**.
 
 > **Flujo demostrado:** commit en `main` (GitHub) → pipeline **CI** (`ponderix-ci`) → artefacto **`webapp`** → pipeline **CD** (`ponderix-cd`) → **Azure App Service** → aplicación actualizada y accesible.
@@ -13,8 +16,8 @@ Práctica final de **Despliegue de Software 2026-2**: Integración Continua (CI)
 | # | Integrante | Usuario GitHub | Responsabilidad | Contribuciones verificables |
 |---|---|---|---|---|
 | 1 | Juan Sebastián Echeverri Gallego | [@JuanSebastianEcheverriGallego](https://github.com/JuanSebastianEcheverriGallego) | Gestión de GitHub, aplicación base y documentación | Repositorio, protección de `main`, acceso del docente, código de la aplicación, README, plantilla de PR. [PR #1](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/1) |
-| 2 | David Stiven Franco López | [@Davdfranco](https://github.com/Davdfranco) | Pruebas automatizadas y calidad | Proyecto `tests/Ponderix.Tests` (pruebas unitarias y de integración), registro en la solución, guía de pruebas. [PR #2](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/2) · [PR #4](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/4) |
-| 3 | Jhon Fernando Sánchez Álvarez | [@Jhonzn](https://github.com/Jhonzn) | Configuración de CI en Azure DevOps | `pipelines/azure-pipelines-ci.yml`, conexión GitHub ↔ Azure DevOps, disparador en `main`, artefacto `webapp`, validación de PR. [PR #3](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/3) · [PR #5](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/5) |
+| 2 | David Stiven Franco López | [@Davdfranco](https://github.com/Davdfranco) | Pruebas automatizadas y calidad | Proyecto `tests/Ponderix.Tests` (pruebas unitarias y de integración), registro en la solución, guía de pruebas. [PR #2](https://github.com/JuanSebastianEcheverriGallego/PonderixOficial/pull/2) |
+| 3 | Jhon Fernando Sánchez Álvarez | [@Jhonzn](https://github.com/Jhonzn) | Configuración de CI en Azure DevOps | `pipelines/azure-pipelines-ci.yml`, conexión GitHub ↔ Azure DevOps, disparador en `main`, artefacto `webapp`, validación de PR. [PR #3](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/3) |
 | 4 | Marbel Juliana Mejía Bedoya | [@JULIANA-s22](https://github.com/JULIANA-s22) | Configuración de CD y Azure | App Service, Service Connection, entorno `ponderix-produccion`, `pipelines/azure-pipelines-cd.yml`, `scripts/crear-recursos-azure.*`. [PR #7](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/7) |
 | 5 | Marlon García Sepúlveda | [@M3rl0n](https://github.com/M3rl0n) | Verificación extremo a extremo, evidencias y videos | Cambio visible v1.1.0, `scripts/verificar-despliegue.*`, `scripts/buscar-secretos.*`, carpeta `evidencias/`, coordinación de videos. [PR #10](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/10) · [PR #11](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/11) · [PR #12](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/12) |
 
@@ -139,8 +142,6 @@ Ejecución local: `dotnet test Ponderix.slnx` → 25 superadas, 0 con error.
 - **Etapas:**
   - **Validar:** instalación de .NET SDK 10, restauración de dependencias (`restore`), compilación (`build`), ejecución de pruebas (`test`) y publicación de resultados y cobertura.
   - **Empaquetar:** publicación de la aplicación (`publish`), generación de `buildinfo.json`, creación del archivo `ponderix-<build>.zip` y publicación del artefacto `webapp`.
-
-En las ejecuciones correspondientes a Pull Requests únicamente se ejecuta la etapa **Validar**. La etapa **Empaquetar** se ejecuta en las ejecuciones de la rama principal (`main`).
 
 - Archivo: [`pipelines/azure-pipelines-ci.yml`](pipelines/azure-pipelines-ci.yml)
 - Disparador: push a `main` (y validación de PR hacia `main`).
