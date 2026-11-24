@@ -19,7 +19,7 @@ Práctica final de **Despliegue de Software 2026-2**: Integración Continua (CI)
 | 2 | David Stiven Franco López | [@Davdfranco](https://github.com/Davdfranco) | Pruebas automatizadas y calidad | Proyecto `tests/Ponderix.Tests` (pruebas unitarias y de integración), registro en la solución, guía de pruebas. [PR #2](https://github.com/JuanSebastianEcheverriGallego/PonderixOficial/pull/2) |
 | 3 | Jhon Fernando Sánchez Álvarez | [@Jhonzn](https://github.com/Jhonzn) | Configuración de CI en Azure DevOps | `pipelines/azure-pipelines-ci.yml`, conexión GitHub ↔ Azure DevOps, disparador en `main`, artefacto `webapp`, validación de PR. [PR #3](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/3) |
 | 4 | Marbel Juliana Mejía Bedoya | [@JULIANA-s22](https://github.com/JULIANA-s22) | Configuración de CD y Azure | App Service, Service Connection, entorno `ponderix-produccion`, `pipelines/azure-pipelines-cd.yml`, `scripts/crear-recursos-azure.*`. [PR #7](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/7) |
-| 5 | Marlon García Sepúlveda | [@M3rl0n](https://github.com/M3rl0n) | Verificación extremo a extremo, evidencias y videos | Cambio visible v1.1.0, `scripts/verificar-despliegue.*`, `scripts/buscar-secretos.*`, carpeta `evidencias/`, coordinación de videos. [PENDIENTE: enlace al PR] |
+| 5 | Marlon García Sepúlveda | [@M3rl0n](https://github.com/M3rl0n) | Verificación extremo a extremo, evidencias y videos | Cambio visible v1.1.0, `scripts/verificar-despliegue.*`, `scripts/buscar-secretos.*`, carpeta `evidencias/`, coordinación de videos. [PR #10](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/10) · [PR #11](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/11) · [PR #12](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/12) |
 
 El detalle de quién hizo qué se puede comprobar en la pestaña **Pull requests → Closed** y en `git log --merges`.
 
@@ -179,12 +179,14 @@ Ejecución local: `dotnet test Ponderix.slnx` → 25 superadas, 0 con error.
 
 | Paso | Evidencia |
 |---|---|
-| Pull Request del cambio visible (v1.1.0) | [PENDIENTE: enlace al PR] |
-| Commit en `main` | [PENDIENTE: SHA y enlace] |
-| Ejecución de CI | [PENDIENTE: número de ejecución y enlace] |
-| Artefacto `webapp` | [PENDIENTE: ponderix-<build>.zip] |
-| Ejecución de CD | [PENDIENTE: nombre «CD de CI <build>» y enlace] |
-| Versión publicada | [PENDIENTE: salida de `/api/version` con el mismo commit] |
+| Pull Request del cambio visible (v1.1.0) | [PR #11 · Versión 1.1.0](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/11): autor Marlon, aprobado por Marbel, fusionado por Marlon el 23-nov-2026 a las 22:52 (hora de Colombia) con *Create a merge commit*. Validación del PR: ejecución `20261123.4` (solo Validar, 25/25 pruebas) · [PR](evidencias/04-extremo-a-extremo/02-pr-cambio-visible.png) · [validación](evidencias/04-extremo-a-extremo/02b-validacion-del-pr.png) |
+| Commit en `main` | [`b788a22`](https://github.com/DespliegueOrganizacion/PonderixOficial/commit/b788a221339abe3a1480b70acdd415bffe8da3d2), merge commit con padres `548c80a` + `7cd73ec` · [captura](evidencias/04-extremo-a-extremo/03-commit-en-main.png) |
+| Ejecución de CI | [`ponderix-ci` · 20261124.1](https://dev.azure.com/ponderix-equipo/Ponderix/_build/results?buildId=23): motivo *Individual CI*, rama `main`, etiqueta `commit-b788a22`, 25/25 pruebas, 2 min 43 s · [captura](evidencias/04-extremo-a-extremo/04-ci-del-commit.png) |
+| Artefacto `webapp` | `ponderix-20261124.1.zip` + `buildinfo.json` con `commit` = `b788a221339abe3a1480b70acdd415bffe8da3d2` y `fechaBuild` = `2026-11-24T03:55:09Z` (22:55 en Colombia) |
+| Ejecución de CD | [«CD de CI 20261124.1»](https://dev.azure.com/ponderix-equipo/Ponderix/_build/results?buildId=24): *Automatically triggered* por `ci/20261124.1` a las 22:55, 1 min 29 s · [captura](evidencias/04-extremo-a-extremo/05-cd-de-esa-ci.png) |
+| Versión publicada | `/api/version` → `"version":"1.1.0"`, `"build":"20261124.1"`, `"commit":"b788a221339abe3a1480b70acdd415bffe8da3d2"` · [app](evidencias/04-extremo-a-extremo/06-app-despues-v1-1-0.png) · [API](evidencias/04-extremo-a-extremo/07-api-version-mismo-commit.png) · [`verificar-despliegue`: superada](evidencias/04-extremo-a-extremo/08-script-verificacion.png) |
+
+Del merge (22:52) a la versión 1.1.0 publicada (~22:57) pasaron unos 4,5 minutos, sin ejecuciones manuales: la CI arrancó por *Individual CI* y la CD por el recurso de pipeline (*Automatically triggered*).
 
 ## 13. Evidencias
 
@@ -194,8 +196,8 @@ Capturas organizadas en [`evidencias/`](evidencias/README.md) por actividad (rep
 
 | Video | Enlace |
 |---|---|
-| Video 1 · Integración Continua (CI) | [PENDIENTE: ENLACE DE YOUTUBE] |
-| Video 2 · Entrega Continua (CD) | [PENDIENTE: ENLACE DE YOUTUBE] |
+| Video 1 · Integración Continua (CI) | [Ver en YouTube](https://www.youtube.com/watch?v=Lmi-mGvwmCo) |
+| Video 2 · Entrega Continua (CD) | [Ver en YouTube](https://www.youtube.com/watch?v=uPKBFfj24mI) |
 
 ## 15. Seguridad
 
@@ -213,6 +215,9 @@ Capturas organizadas en [`evidencias/`](evidencias/README.md) por actividad (rep
 | 2 | «Operation cannot be completed without additional quota» al crear el plan F1 en `canadacentral` y `centralus` (y B1 en `centralus`) | La suscripción tenía cuota 0 de instancias F1/B1 en esas regiones | Probar las regiones permitidas hasta encontrar cuota: F1 funcionó en `mexicocentral`. Se eliminó el grupo de recursos de prueba y se recreó todo con `scripts/crear-recursos-azure.ps1` en esa región | Marbel |
 | 3 | «Access denied. ... needs Create permissions» al crear el entorno `ponderix-produccion` | La cuenta no tenía permisos de creación en Environments de Azure DevOps | Jhon agregó a Marbel a *Project Administrators*; después se creó el entorno | Marbel |
 | 4 | La CD quedó en «Waiting · Permission needed» en la primera ejecución | Azure DevOps exige autorizar explícitamente el uso de la Service Connection y del entorno por parte de una pipeline nueva | Pulsar *View → Permit* para ambos recursos en la primera ejecución manual | Marbel |
+| 5 | `dotnet build` falló con «A compatible .NET SDK was not found. Requested SDK version: 10.0.100»: en el equipo solo quedaba el SDK 11.0.100 | Una actualización reemplazó el SDK 10.0.400 por el 11.0.100 y `global.json` (10.0.100 con `rollForward: latestFeature`) no pasa de la versión 10 a la 11 | Instalar el SDK 10.0.404 junto al 11 (`winget install Microsoft.DotNet.SDK.10`); `dotnet --version` → 10.0.404 y 25/25 pruebas. No se cambió `global.json` para mantener la misma versión que la CI (`10.0.x`) | Marlon |
+| 6 | En Windows PowerShell 5.1 los `.ps1` mostraban tildes rotas y el patrón de `buscar-secretos.ps1` (con comillas) llegaba mal a `git grep` | PowerShell 5.1 lee UTF-8 sin BOM como ANSI y no escapa las comillas al llamar a `git.exe` | Guardar los `.ps1` en UTF-8 con BOM y pasar el patrón a `git grep` desde un archivo temporal (`-f`); las evidencias se tomaron con Git Bash | Marlon |
+| 7 | En la revisión del PR #9, la captura `08-cd-automatica.png.jpeg` tenía doble extensión y el README la enlazaba como `.png` (enlace roto) | El archivo se exportó con la extensión equivocada | Se renombró a `08-cd-automatica.png` antes de aprobar y fusionar el PR #9 | Marlon (revisión) |
 
 ## 17. Licencia y uso académico
 

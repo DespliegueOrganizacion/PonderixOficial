@@ -35,11 +35,13 @@ Capturas **reales** tomadas de GitHub, Azure DevOps y Azure. Formato PNG, legibl
 |---|---|---|
 | `01-app-service-overview.png` | Overview del App Service (Linux, .NET 10, estado Running, URL) | Marbel |
 | `02-app-service-configuracion.png` | Configuration → General settings (pila, comando de inicio, HTTPS Only) | Marbel |
+| `02b-app-service-pila.png` | Pila .NET 10 del App Service | Marbel |
 | `03-service-connection.png` | Service connection `sc-azure-ponderix` (sin datos sensibles visibles) | Marbel |
 | `04-entorno-produccion.png` | Environment `ponderix-produccion` con su historial de despliegues | Marbel |
 | `05-pipeline-cd-recurso.png` | Ejecución de CD mostrando el recurso `ci` y la ejecución de CI que la disparó | Marbel |
 | `06-despliegue-exitoso.png` | Log del paso «Desplegar .zip en App Service» en verde | Marbel |
 | `07-prueba-humo.png` | Log de la prueba de humo con el commit publicado | Marbel |
+| `08-cd-automatica.png` | Ejecución de CD «Automatically triggered» por `ponderix-ci` tras el merge del PR #8 | Marbel |
 
 ## 04-extremo-a-extremo/ — Mismo cambio de GitHub a Azure
 
@@ -47,6 +49,7 @@ Capturas **reales** tomadas de GitHub, Azure DevOps y Azure. Formato PNG, legibl
 |---|---|---|
 | `01-app-antes-v1-0-0.png` | URL pública con versión 1.0.0 (antes del cambio) | Marlon |
 | `02-pr-cambio-visible.png` | PR del cambio a v1.1.0 aprobado y fusionado | Marlon |
+| `02b-validacion-del-pr.png` | Validación del PR #11 en `ponderix-ci` (solo Validar; Empaquetar omitido por condición) | Marlon |
 | `03-commit-en-main.png` | Commit de fusión en `main` con su SHA | Marlon |
 | `04-ci-del-commit.png` | Ejecución de CI del mismo SHA (motivo automático) | Marlon |
 | `05-cd-de-esa-ci.png` | Ejecución de CD «CD de CI <build>» disparada por esa CI | Marlon |
