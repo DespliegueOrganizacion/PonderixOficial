@@ -3,8 +3,6 @@
 [![Build Status](https://dev.azure.com/ponderix-equipo/Ponderix/_apis/build/status%2Fponderix-ci?branchName=main)](https://dev.azure.com/ponderix-equipo/Ponderix/_build/latest?definitionId=1&branchName=main)
 
 
-En las ejecuciones correspondientes a Pull Requests únicamente se ejecuta la etapa **Validar**. La etapa **Empaquetar** se ejecuta en las ejecuciones de la rama principal (`main`).
-
 Práctica final de **Despliegue de Software 2026-2**: Integración Continua (CI) y Entrega Continua (CD) con **GitHub**, **Azure DevOps** y **Azure App Service**.
 
 > **Flujo demostrado:** commit en `main` (GitHub) → pipeline **CI** (`ponderix-ci`) → artefacto **`webapp`** → pipeline **CD** (`ponderix-cd`) → **Azure App Service** → aplicación actualizada y accesible.
@@ -15,11 +13,11 @@ Práctica final de **Despliegue de Software 2026-2**: Integración Continua (CI)
 
 | # | Integrante | Usuario GitHub | Responsabilidad | Contribuciones verificables |
 |---|---|---|---|---|
-| 1 | Juan Sebastián Echeverri Gallego | [@JuanSebastianEcheverriGallego](https://github.com/JuanSebastianEcheverriGallego) | Gestión de GitHub, aplicación base y documentación | Repositorio, protección de `main`, acceso del docente, código de la aplicación, README, plantilla de PR. [PR #1](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/1) |
-| 2 | David Stiven Franco López | [@Davdfranco](https://github.com/Davdfranco) | Pruebas automatizadas y calidad | Proyecto `tests/Ponderix.Tests` (pruebas unitarias y de integración), registro en la solución, guía de pruebas. [PR #2](https://github.com/JuanSebastianEcheverriGallego/PonderixOficial/pull/2) |
-| 3 | Jhon Fernando Sánchez Álvarez | [@Jhonzn](https://github.com/Jhonzn) | Configuración de CI en Azure DevOps | `pipelines/azure-pipelines-ci.yml`, conexión GitHub ↔ Azure DevOps, disparador en `main`, artefacto `webapp`, validación de PR. [PR #3](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/3) |
-| 4 | Marbel Juliana Mejía Bedoya | [@JULIANA-s22](https://github.com/JULIANA-s22) | Configuración de CD y Azure | App Service, Service Connection, entorno `ponderix-produccion`, `pipelines/azure-pipelines-cd.yml`, `scripts/crear-recursos-azure.*`. [PR #7](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/7) |
-| 5 | Marlon García Sepúlveda | [@M3rl0n](https://github.com/M3rl0n) | Verificación extremo a extremo, evidencias y videos | Cambio visible v1.1.0, `scripts/verificar-despliegue.*`, `scripts/buscar-secretos.*`, carpeta `evidencias/`, coordinación de videos. [PR #10](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/10) · [PR #11](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/11) · [PR #12](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/12) |
+| 1 | Juan Sebastián Echeverri Gallego | [@JuanSebastianEcheverriGallego](https://github.com/JuanSebastianEcheverriGallego) | Gestión de GitHub, aplicación base y documentación | Repositorio, protección de `main`, acceso del docente, código de la aplicación, README, plantilla de PR. [PR #1](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/1) · [PR #6](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/6) |
+| 2 | David Stiven Franco López | [@Davdfranco](https://github.com/Davdfranco) | Pruebas automatizadas y calidad | Proyecto `tests/Ponderix.Tests` (pruebas unitarias y de integración), registro en la solución, guía de pruebas y capturas de evidencia de la CI. [PR #2](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/2) · [PR #4](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/4) · [PR #14](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/14) |
+| 3 | Jhon Fernando Sánchez Álvarez | [@Jhonzn](https://github.com/Jhonzn) | Configuración de CI en Azure DevOps | `pipelines/azure-pipelines-ci.yml`, conexión GitHub ↔ Azure DevOps, disparador en `main`, artefacto `webapp`, validación de PR. [PR #3](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/3) · [PR #5](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/5) · [PR #12](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/12) |
+| 4 | Marbel Juliana Mejía Bedoya | [@JULIANA-s22](https://github.com/JULIANA-s22) | Configuración de CD y Azure | App Service, Service Connection, entorno `ponderix-produccion`, `pipelines/azure-pipelines-cd.yml`, `scripts/crear-recursos-azure.*`. [PR #7](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/7) · [PR #8](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/8) · [PR #9](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/9) |
+| 5 | Marlon García Sepúlveda | [@M3rl0n](https://github.com/M3rl0n) | Verificación extremo a extremo, evidencias y videos | Cambio visible v1.1.0, `scripts/verificar-despliegue.*`, `scripts/buscar-secretos.*`, carpeta `evidencias/`, coordinación de videos. [PR #10](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/10) · [PR #11](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/11) · [PR #13](https://github.com/DespliegueOrganizacion/PonderixOficial/pull/13) |
 
 El detalle de quién hizo qué se puede comprobar en la pestaña **Pull requests → Closed** y en `git log --merges`.
 
@@ -139,6 +137,8 @@ Ejecución local: `dotnet test Ponderix.slnx` → 25 superadas, 0 con error.
 - **Organización / proyecto:** `ponderix-equipo` / `Ponderix`
 - **Pipeline:** [ponderix-ci](https://dev.azure.com/ponderix-equipo/Ponderix/_build?definitionId=1)
 - **Ejecución de referencia:** [Build #4](https://dev.azure.com/ponderix-equipo/Ponderix/_build/results?buildId=4&view=results)
+- **Primera ejecución en `main`:** [20261119.2](https://dev.azure.com/ponderix-equipo/Ponderix/_build/results?buildId=2) (merge del PR #3; *Individual CI*; 25/25 pruebas). Evidencia: `evidencias/02-ci/02-pruebas-en-pipeline.png`.
+- **Ejecución de la demostración extremo a extremo:** [20261124.1](https://dev.azure.com/ponderix-equipo/Ponderix/_build/results?buildId=23) (ver sección 12).
 - **Etapas:**
   - **Validar:** instalación de .NET SDK 10, restauración de dependencias (`restore`), compilación (`build`), ejecución de pruebas (`test`) y publicación de resultados y cobertura.
   - **Empaquetar:** publicación de la aplicación (`publish`), generación de `buildinfo.json`, creación del archivo `ponderix-<build>.zip` y publicación del artefacto `webapp`.
@@ -168,6 +168,17 @@ Ejecución local: `dotnet test Ponderix.slnx` → 25 superadas, 0 con error.
 | Service Connection | `sc-azure-ponderix` (Azure Resource Manager, federación de identidad de carga de trabajo) |
 | Entorno de Azure DevOps | `ponderix-produccion` · **sin aprobación manual**: cada ejecución exitosa de CI en `main` se despliega sin intervención humana (automatización extremo a extremo). Si se añadiera *Approvals and checks → Approvals*, la CD quedaría en pausa («Waiting for approval») hasta que la persona aprobadora acepte: más control, menos automatización. |
 
+### Almacenamiento y alcance de las comprobaciones
+
+**Almacenamiento.** La aplicación no guarda datos: no usa base de datos ni escribe archivos de usuario. Lo único que lee del disco es el paquete publicado (binarios, `wwwroot`) y `buildinfo.json`, que genera la CI y es de solo lectura. El plan **F1** incluye 1 GB de almacenamiento y no tiene *Always On*: tras un periodo de inactividad la primera petición puede tardar (arranque en frío). Cada despliegue sustituye la versión anterior; no hay datos de usuario que conservar ni migrar.
+
+| Comprobación | Qué verifica | Qué **no** verifica |
+|---|---|---|
+| `/health` (ruta de salud de Azure y prueba de humo de la CD) | Que el proceso arrancó y responde `Healthy` | Dependencias externas (la aplicación no tiene) ni la lógica de negocio |
+| `/api/version` (prueba de humo de la CD) | Que lo publicado es el **commit** construido por la CI | Que los cálculos sean correctos |
+| `scripts/verificar-despliegue.*` | Funcionalidad real en la URL pública: `POST /api/notas/calcular` devuelve 4.75 «Excelente» y rechaza datos inválidos | Rendimiento, carga ni escalado |
+| Pruebas automatizadas (CI, 25) | Lógica de cálculo y endpoints, en memoria, antes de empaquetar | El entorno real de Azure |
+
 ## 11. URL pública
 
 **<https://ponderix-equipo1.azurewebsites.net>**
@@ -185,6 +196,8 @@ Ejecución local: `dotnet test Ponderix.slnx` → 25 superadas, 0 con error.
 | Artefacto `webapp` | `ponderix-20261124.1.zip` + `buildinfo.json` con `commit` = `b788a221339abe3a1480b70acdd415bffe8da3d2` y `fechaBuild` = `2026-11-24T03:55:09Z` (22:55 en Colombia) |
 | Ejecución de CD | [«CD de CI 20261124.1»](https://dev.azure.com/ponderix-equipo/Ponderix/_build/results?buildId=24): *Automatically triggered* por `ci/20261124.1` a las 22:55, 1 min 29 s · [captura](evidencias/04-extremo-a-extremo/05-cd-de-esa-ci.png) |
 | Versión publicada | `/api/version` → `"version":"1.1.0"`, `"build":"20261124.1"`, `"commit":"b788a221339abe3a1480b70acdd415bffe8da3d2"` · [app](evidencias/04-extremo-a-extremo/06-app-despues-v1-1-0.png) · [API](evidencias/04-extremo-a-extremo/07-api-version-mismo-commit.png) · [`verificar-despliegue`: superada](evidencias/04-extremo-a-extremo/08-script-verificacion.png) |
+
+Nota: el número de ejecución (`20261124.1`) usa fecha UTC, por eso lleva el día 24 aunque el merge fue el 23 a las 22:52 en Colombia (UTC−5).
 
 Del merge (22:52) a la versión 1.1.0 publicada (~22:57) pasaron unos 4,5 minutos, sin ejecuciones manuales: la CI arrancó por *Individual CI* y la CD por el recurso de pipeline (*Automatically triggered*).
 
@@ -218,6 +231,15 @@ Capturas organizadas en [`evidencias/`](evidencias/README.md) por actividad (rep
 | 5 | `dotnet build` falló con «A compatible .NET SDK was not found. Requested SDK version: 10.0.100»: en el equipo solo quedaba el SDK 11.0.100 | Una actualización reemplazó el SDK 10.0.400 por el 11.0.100 y `global.json` (10.0.100 con `rollForward: latestFeature`) no pasa de la versión 10 a la 11 | Instalar el SDK 10.0.404 junto al 11 (`winget install Microsoft.DotNet.SDK.10`); `dotnet --version` → 10.0.404 y 25/25 pruebas. No se cambió `global.json` para mantener la misma versión que la CI (`10.0.x`) | Marlon |
 | 6 | En Windows PowerShell 5.1 los `.ps1` mostraban tildes rotas y el patrón de `buscar-secretos.ps1` (con comillas) llegaba mal a `git grep` | PowerShell 5.1 lee UTF-8 sin BOM como ANSI y no escapa las comillas al llamar a `git.exe` | Guardar los `.ps1` en UTF-8 con BOM y pasar el patrón a `git grep` desde un archivo temporal (`-f`); las evidencias se tomaron con Git Bash | Marlon |
 | 7 | En la revisión del PR #9, la captura `08-cd-automatica.png.jpeg` tenía doble extensión y el README la enlazaba como `.png` (enlace roto) | El archivo se exportó con la extensión equivocada | Se renombró a `08-cd-automatica.png` antes de aprobar y fusionar el PR #9 | Marlon (revisión) |
+| 8 | Al hacer `git add` de `Ponderix.slnx` apareció «CRLF will be replaced by LF» | En Windows los archivos usan CRLF y `.gitattributes` normaliza a LF | Es un aviso informativo; el commit se hizo y `git status` quedó limpio | David |
+| 9 | Las capturas `03` y `04` de David chocaban con la numeración de `evidencias/README.md` (eran de Jhon) | Se nombraron sin revisar los números ya asignados | Se renombraron a `09` y `10` y se registraron en la tabla de evidencias antes de aprobar el PR #2 | David |
+| 10 | `git push` mostró «This repository moved» | El repositorio se trasladó a la organización `DespliegueOrganizacion` | `git remote set-url origin https://github.com/DespliegueOrganizacion/PonderixOficial.git` y `git fetch` | David |
+| 11 | «0 collaborators, 5 invitations»: nadie podía subir ramas | Las invitaciones de GitHub no dan permiso de escritura hasta aceptarlas | Cada integrante aceptó su invitación; se verificó al aprobar el PR #1 y subir sus ramas | Juan |
+| 12 | El PR #1 quedó abierto del 15 al 17 de noviembre sin poder fusionarse | La protección de `main` exige una aprobación y el autor no puede aprobar su propio PR | David revisó, aprobó y fusionó el PR #1 el 17 de noviembre (merge `38c1a25`) | Juan |
+| 13 | El nombre «Ponderix» ya estaba ocupado por el repositorio de respaldo del material | GitHub no permite dos repositorios cuyos nombres solo difieran en mayúsculas | Se creó el repositorio oficial como `PonderixOficial` y se actualizaron las guías con la URL nueva | Juan |
+| 14 | Conflictos al integrar cambios en `main` | La rama local estaba desactualizada frente a los cambios de otros integrantes | Sincronizar con `origin/main` y revisar los cambios antes de integrar | Jhon |
+| 15 | La rama local y la remota tenían historiales de commits diferentes (divergencia) | Commits distintos en ambas ramas | `git fetch` y revisión del historial para identificar las diferencias antes de sincronizar | Jhon |
+| 16 | Un merge quedó pendiente de finalizar | La integración quedó sin confirmar | `git merge --abort` y nueva sincronización con `origin/main`; revisar `git status` antes de iniciar un merge | Jhon |
 
 ## 17. Licencia y uso académico
 
